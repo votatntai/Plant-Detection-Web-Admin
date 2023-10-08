@@ -10,16 +10,16 @@
             <!-- Title -->
             <div class="mt-8 text-4xl font-extrabold tracking-tight leading-tight">Sign in</div>
             <div class="flex items-baseline mt-0.5 font-medium">
-                <div>Don't have an account?</div>
-                <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-up']">Sign up
-                </a>
+                <div>Using your manager account to login!</div>
+                <!-- <a class="ml-1 text-primary-500 hover:underline" [routerLink]="['/sign-up']">Sign up
+                </a> -->
             </div>
 
             <!-- Alert -->
-            <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="'info'">
+            <!-- <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="'info'">
                 You are browsing <strong>Fuse Demo</strong>. Click on the "Sign in" button to access the Demo and
                 Documentation.
-            </fuse-alert>
+            </fuse-alert> -->
 
             <!-- Alert -->
             <fuse-alert class="mt-8" *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type"
