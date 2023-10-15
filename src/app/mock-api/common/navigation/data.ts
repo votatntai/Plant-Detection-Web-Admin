@@ -15,6 +15,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:wrench',
         link: '/configurations'
+    },
+    {
+        id: 'classes',
+        title: 'Classes',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-bar-square',
+        link: '/classes'
+    },
+    {
+        id: 'students',
+        title: 'Students',
+        type: 'basic',
+        icon: 'heroicons_outline:users',
+        link: '/students'
     }
 ];
 export const compactNavigation: FuseNavigationItem[] = [
@@ -31,6 +45,20 @@ export const compactNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:wrench',
         link: '/configurations'
+    },
+    {
+        id: 'classes',
+        title: 'Classes',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-bar-square',
+        link: '/classes'
+    },
+    {
+        id: 'students',
+        title: 'Students',
+        type: 'basic',
+        icon: 'heroicons_outline:users',
+        link: '/students'
     }
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -47,6 +75,20 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:wrench',
         link: '/configurations'
+    },
+    {
+        id: 'classes',
+        title: 'Classes',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-bar-square',
+        link: '/classes'
+    },
+    {
+        id: 'students',
+        title: 'Students',
+        type: 'basic',
+        icon: 'heroicons_outline:users',
+        link: '/students'
     }
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
@@ -63,5 +105,19 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:wrench',
         link: '/configurations'
+    },
+    {
+        id: 'classes',
+        title: 'Classes',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-bar-square',
+        link: '/classes'
+    },
+    {
+        id: 'students',
+        title: 'Students',
+        type: 'basic',
+        icon: 'heroicons_outline:users',
+        link: '/students'
     }
 ];

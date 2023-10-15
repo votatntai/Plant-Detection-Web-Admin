@@ -1,5 +1,4 @@
-export interface FuseConfirmationConfig
-{
+export interface FuseConfirmationConfig {
     title?: string;
     message?: string;
     icon?: {
@@ -19,4 +18,8 @@ export interface FuseConfirmationConfig
         };
     };
     dismissible?: boolean;
+    input?: {
+        title: string;
+        content?: string;
+    }
 }
