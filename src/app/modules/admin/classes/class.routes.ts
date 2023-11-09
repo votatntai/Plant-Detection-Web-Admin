@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ClassComponent } from 'app/modules/admin/classes/class.component';
-import { ClassService } from './claass.service';
+import { ClassService } from './class.service';
 import { inject } from '@angular/core';
 import { ClassDetailComponent } from './details/class-detail.component';
 import { initialDataResolver } from './details/class-detail.resolvers';

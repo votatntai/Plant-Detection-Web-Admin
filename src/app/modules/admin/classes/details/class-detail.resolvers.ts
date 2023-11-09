@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { ClassService } from '../claass.service';
+import { ClassService } from '../class.service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 export const initialDataResolver = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {

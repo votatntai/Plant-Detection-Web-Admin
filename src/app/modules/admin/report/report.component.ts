@@ -12,16 +12,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custom-pipes.module';
-import { Class } from 'app/types/class.type';
 import { Pagination } from 'app/types/pagination.type';
+import { Report } from 'app/types/report.type';
 import { Observable, Subject, debounceTime, map, merge, switchMap, takeUntil } from 'rxjs';
-import { ClassService } from './class.service';
-import { ClassDetailComponent } from './details/class-detail.component';
+import { ReportDetailComponent } from './details/report-detail.component';
+import { ReportService } from './report.service';
 
 @Component({
-    selector: 'app-class',
-    templateUrl: 'class.component.html',
-    styleUrls: ['class.component.css'],
+    selector: 'app-report',
+    templateUrl: 'report.component.html',
+    styleUrls: ['report.component.css'],
     standalone: true,
     imports: [CommonModule, MatProgressBarModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule,
         MatPaginatorModule, MatSortModule, CustomPipesModule, MatSelectModule
@@ -36,12 +36,12 @@ import { ClassDetailComponent } from './details/class-detail.component';
     ],
 })
 
-export class ClassComponent implements OnInit, AfterViewInit {
+export class ReportComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
 
-    classes$: Observable<Class[]>;
+    reports$: Observable<Report[]>;
 
     flashMessage: 'success' | 'error' | null = null;
     message: string = null;
@@ -54,7 +54,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     constructor(
-        private _classService: ClassService,
+        private _reportService: ReportService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
         private router: Router
@@ -63,10 +63,10 @@ export class ClassComponent implements OnInit, AfterViewInit {
     ngOnInit() {
 
         // Get the products
-        this.classes$ = this._classService.classes$;
+        this.reports$ = this._reportService.reports$;
 
         // Get the pagination
-        this._classService.pagination$
+        this._reportService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination: Pagination) => {
 
@@ -107,7 +107,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
             merge(this._sort.sortChange, this._paginator.page).pipe(
                 switchMap(() => {
                     this.isLoading = true;
-                    return this._classService.getClasses(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
+                    return this._reportService.getReports(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -125,7 +125,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
                 switchMap((query) => {
                     this.query = query;
                     this.isLoading = true;
-                    return this._classService.getClasses(0, this._paginator.pageSize, this._sort.active, this._sort.direction, query, this.status);
+                    return this._reportService.getReports(0, this._paginator.pageSize, this._sort.active, this._sort.direction, query, this.status);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -133,12 +133,13 @@ export class ClassComponent implements OnInit, AfterViewInit {
             ).subscribe();
     }
 
-    onClassClick(classId: string) {
-        this.router.navigate(['/classes', classId]).then(() => {
-            this._dialog.open(ClassDetailComponent, {
+    onReportClick(reportId: string) {
+        this.router.navigate(['/reports', reportId]).then(() => {
+            this._dialog.open(ReportDetailComponent, {
                 width: '1080px',
+                autoFocus: false
             }).afterClosed().subscribe(data => {
-                this.router.navigate(['/classes']);
+                this.router.navigate(['/reports']);
             })
         });
     }
@@ -148,6 +149,6 @@ export class ClassComponent implements OnInit, AfterViewInit {
         if (event.value === 'All') {
             this.status = undefined;
         }
-        this._classService.getClasses(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.query, this.status).subscribe();
+        this._reportService.getReports(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.query, this.status).subscribe();
     }
 }

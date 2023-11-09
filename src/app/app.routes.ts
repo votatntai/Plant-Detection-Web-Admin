@@ -78,6 +78,21 @@ export const appRoutes: Route[] = [
             { path: 'dashboards', loadChildren: () => import('app/modules/admin/dashboards/dashboard.routes') },
             { path: 'configurations', loadChildren: () => import('app/modules/admin/configurations/configuration.routes') },
             { path: 'classes', loadChildren: () => import('app/modules/admin/classes/class.routes') },
+            { path: 'reports', loadChildren: () => import('app/modules/admin/report/report.routes') },
+        ]
+    },
+
+    // Resource routes
+    {
+        path: 'resources',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'plants', loadChildren: () => import('app/modules/admin/plants/plant.routes') },
         ]
     }
 ];

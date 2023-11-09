@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
@@ -12,16 +12,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custom-pipes.module';
-import { Class } from 'app/types/class.type';
+import { Plant } from 'app/types/plant.type';
 import { Pagination } from 'app/types/pagination.type';
 import { Observable, Subject, debounceTime, map, merge, switchMap, takeUntil } from 'rxjs';
-import { ClassService } from './class.service';
-import { ClassDetailComponent } from './details/class-detail.component';
+import { PlantService } from './plant.service';
+import { CreatePlantComponent } from './create/create-plant.component';
 
 @Component({
-    selector: 'app-class',
-    templateUrl: 'class.component.html',
-    styleUrls: ['class.component.css'],
+    selector: 'app-plant',
+    templateUrl: 'plant.component.html',
+    styleUrls: ['plant.component.css'],
     standalone: true,
     imports: [CommonModule, MatProgressBarModule, MatIconModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule,
         MatPaginatorModule, MatSortModule, CustomPipesModule, MatSelectModule
@@ -36,12 +36,12 @@ import { ClassDetailComponent } from './details/class-detail.component';
     ],
 })
 
-export class ClassComponent implements OnInit, AfterViewInit {
+export class PlantComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
     @ViewChild(MatSort) private _sort: MatSort;
 
-    classes$: Observable<Class[]>;
+    plants$: Observable<Plant[]>;
 
     flashMessage: 'success' | 'error' | null = null;
     message: string = null;
@@ -54,19 +54,18 @@ export class ClassComponent implements OnInit, AfterViewInit {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     constructor(
-        private _classService: ClassService,
+        private _plantService: PlantService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
-        private router: Router
     ) { }
 
     ngOnInit() {
 
         // Get the products
-        this.classes$ = this._classService.classes$;
+        this.plants$ = this._plantService.plants$;
 
         // Get the pagination
-        this._classService.pagination$
+        this._plantService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination: Pagination) => {
 
@@ -107,7 +106,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
             merge(this._sort.sortChange, this._paginator.page).pipe(
                 switchMap(() => {
                     this.isLoading = true;
-                    return this._classService.getClasses(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
+                    return this._plantService.getPlants(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -125,7 +124,7 @@ export class ClassComponent implements OnInit, AfterViewInit {
                 switchMap((query) => {
                     this.query = query;
                     this.isLoading = true;
-                    return this._classService.getClasses(0, this._paginator.pageSize, this._sort.active, this._sort.direction, query, this.status);
+                    return this._plantService.getPlants(0, this._paginator.pageSize, this._sort.active, this._sort.direction, query, this.status);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -133,21 +132,18 @@ export class ClassComponent implements OnInit, AfterViewInit {
             ).subscribe();
     }
 
-    onClassClick(classId: string) {
-        this.router.navigate(['/classes', classId]).then(() => {
-            this._dialog.open(ClassDetailComponent, {
-                width: '1080px',
-            }).afterClosed().subscribe(data => {
-                this.router.navigate(['/classes']);
-            })
-        });
-    }
-
     statusSelectionChange(event: any) {
         this.status = event.value;
         if (event.value === 'All') {
             this.status = undefined;
         }
-        this._classService.getClasses(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.query, this.status).subscribe();
+        this._plantService.getPlants(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.query, this.status).subscribe();
+    }
+
+
+    openCreatePlantDialog() {
+        this._dialog.open(CreatePlantComponent, {
+            width: '960px',
+        })
     }
 }

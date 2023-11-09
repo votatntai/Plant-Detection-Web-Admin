@@ -24,12 +24,28 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: '/classes'
     },
     {
-        id: 'students',
-        title: 'Students',
-        type: 'basic',
+        id: 'resources',
+        title: 'Resources',
+        type: 'group',
         icon: 'heroicons_outline:users',
-        link: '/students'
-    }
+        link: '/resources',
+        children: [
+            {
+                id: 'plants',
+                title: 'Plants Management',
+                type: 'basic',
+                icon: 'heroicons_outline:users',
+                link: '/resources/plants'
+            }
+        ]
+    },
+    {
+        id: 'reports',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:document-chart-bar',
+        link: '/reports'
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -54,12 +70,28 @@ export const compactNavigation: FuseNavigationItem[] = [
         link: '/classes'
     },
     {
-        id: 'students',
-        title: 'Students',
-        type: 'basic',
+        id: 'resources',
+        title: 'Resources',
+        type: 'group',
         icon: 'heroicons_outline:users',
-        link: '/students'
-    }
+        link: '/resources',
+        children: [
+            {
+                id: 'plants',
+                title: 'Plants Management',
+                type: 'basic',
+                icon: '',
+                link: '/plants'
+            }
+        ]
+    },
+    {
+        id: 'reports',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:document-chart-bar',
+        link: '/reports'
+    },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
     {
@@ -84,12 +116,28 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         link: '/classes'
     },
     {
-        id: 'students',
-        title: 'Students',
-        type: 'basic',
+        id: 'resources',
+        title: 'Resources',
+        type: 'group',
         icon: 'heroicons_outline:users',
-        link: '/students'
-    }
+        link: '/resources',
+        children: [
+            {
+                id: 'plants',
+                title: 'Plants Management',
+                type: 'basic',
+                icon: '',
+                link: '/plants'
+            }
+        ]
+    },
+    {
+        id: 'reports',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:document-chart-bar',
+        link: '/reports'
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -114,10 +162,26 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         link: '/classes'
     },
     {
-        id: 'students',
-        title: 'Students',
-        type: 'basic',
+        id: 'resources',
+        title: 'Resources',
+        type: 'group',
         icon: 'heroicons_outline:users',
-        link: '/students'
-    }
+        link: '/resources',
+        children: [
+            {
+                id: 'plants',
+                title: 'Plants Management',
+                type: 'basic',
+                icon: '',
+                link: '/plants'
+            }
+        ]
+    },
+    {
+        id: 'reports',
+        title: 'Reports',
+        type: 'basic',
+        icon: 'heroicons_outline:document-chart-bar',
+        link: '/reports'
+    },
 ];

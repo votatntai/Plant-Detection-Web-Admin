@@ -3,47 +3,40 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { FuseAlertComponent } from '@fuse/components/alert';
 import { FuseCardComponent } from '@fuse/components/card';
 import { CustomPipesModule } from '@fuse/pipes/custom-pipes.module';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { ClassStudent } from 'app/types/class-student.type';
-import { Class } from 'app/types/class.type';
-import { Pagination } from 'app/types/pagination.type';
-import { ClassService } from '../class.service';
-import { FuseAlertComponent } from '@fuse/components/alert';
+import { Report } from 'app/types/report.type';
+import { ReportService } from '../report.service';
 
 @Component({
-    selector: 'app-class-detail',
-    templateUrl: 'class-detail.component.html',
+    selector: 'app-report-detail',
+    templateUrl: 'report-detail.component.html',
     standalone: true,
-    styleUrls: ['class-detail-component.css'],
+    styleUrls: ['report-detail-component.css'],
     imports: [MatIconModule, FuseCardComponent, CommonModule, MatButtonModule, CustomPipesModule, FuseAlertComponent]
 })
 
-export class ClassDetailComponent implements OnInit {
+export class ReportDetailComponent implements OnInit {
 
-    class: Class;
-    classStudents: ClassStudent[];
-    studentsPagination: Pagination;
+    report: Report;
 
     constructor(
-        public matDialogRef: MatDialogRef<ClassDetailComponent>,
-        private _classService: ClassService,
+        public matDialogRef: MatDialogRef<ReportDetailComponent>,
+        private _reportService: ReportService,
         private _fuseConfimationService: FuseConfirmationService
     ) { }
 
     ngOnInit() {
-        this._classService.class$.subscribe(iClass => {
-            this.class = iClass;
+        this._reportService.report$.subscribe(report => {
+            this.report = report;
         })
-        this._classService.classStudents$.subscribe(student => {
-            this.classStudents = student;
-        });
     }
 
-    approveClass() {
+    approveReport() {
         this._fuseConfimationService.open({
-            title: 'Approve this class?',
+            title: 'Approve this report?',
             actions: {
                 confirm: {
                     color: 'primary'
@@ -55,20 +48,20 @@ export class ClassDetailComponent implements OnInit {
             }
         }).afterClosed().subscribe(result => {
             if (result === 'confirmed') {
-                this._classService.approveClass(this.class.id).subscribe();
+                this._reportService.approveReport(this.report.id).subscribe();
             }
         });
     }
 
-    rejectClass() {
+    rejectReport() {
         this._fuseConfimationService.open({
-            title: 'Reject this class?',
+            title: 'Reject this report?',
             input: {
                 title: 'The reason',
             },
         }).afterClosed().subscribe(result => {
             if (result.status === 'confirmed') {
-                this._classService.rejectClass(this.class.id, result.message).subscribe();
+                this._reportService.rejectReport(this.report.id, result.message).subscribe();
             }
         });
     }
