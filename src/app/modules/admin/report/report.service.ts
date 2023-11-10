@@ -56,7 +56,7 @@ export class ReportService {
                 sort,
                 order,
                 ...(status !== undefined && { status }),
-                ...(search !== undefined && { name: search }),
+                ...(search !== undefined && search !== null && { name: search }),
             }
         }).pipe(
             tap((response) => {

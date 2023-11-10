@@ -10,40 +10,51 @@
             </button>
         </div>
     </div>
-    <div class="flex flex-col sm:flex-row gap-8 flex-auto items-center sm:items-start p-8 pb-6 sm:pb-8 w-full">
-        <div class="flex flex-col gap-4 w-full">
-            <div class="flex items-center justify-between max-w-80 w-full p-6 filter-info">
-                <img class="w-16 h-16 ml-6 rounded-full" [src]="class.manager.avatarUrl" alt="Card cover image">
-                <div class="flex flex-col">
-                    <div class="text-md leading-tight text-primary">Manager</div>
-                    <div class="text-2xl font-semibold leading-tight">{{ class.manager.firstName }} {{
-                        class.manager.lastName }}</div>
-                    <div class="text-md text-secondary">{{ class.manager.email }}</div>
-                </div>
-            </div>
-            <div class="description border-t">
-                <div class="italic py-3">
-                    {{ class.description }}
+    <div class="flex gap-8 flex-auto items-center sm:items-start p-8 pb-6 sm:pb-8 w-full">
+        <div class="flex flex-row gap-4 items-center w-full">
+            <div class="flex flex-col w-full">
+                <div class="flex gap-4 w-full filter-info py-3">
+                    <img class="w-16 h-16 rounded-full" [src]="class.manager.avatarUrl" alt="Card cover image">
+                    <div class="flex flex-col">
+                        <div class="text-md leading-tight text-primary">Manager</div>
+                        <div class="text-2xl font-semibold leading-tight">{{ class.manager.firstName }} {{
+                            class.manager.lastName }}</div>
+                        <div class="text-md text-secondary">{{ class.manager.email }}</div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="flex w-full flex-col mt-4 border-b divide-y font-medium">
+        <div class="flex w-full flex-col mt-4 divide-y font-medium">
             <div class="flex items-center justify-between py-3">
-                <div class="text-secondary">Class Code</div>
-                <div>{{ class.code }}</div>
+                <div class="text-secondary">Name</div>
+                <div>{{ class.name }}</div>
             </div>
             <div class="flex items-center justify-between py-3">
                 <div class="text-secondary">Maximum members</div>
                 <div>{{ class.numberOfMember }}</div>
             </div>
             <div class="flex items-center justify-between py-3">
-                <div class="text-secondary">Create At</div>
+                <div class="text-secondary">Create at</div>
                 <div>{{ class.createAt | date:'dd-MM-YYYY' }}</div>
             </div>
             <div class="flex items-center justify-between py-3">
                 <div>Status</div>
-                <div [class]="class.status | classStatusStyle">{{ class.status }}</div>
+                <div class="flex items-center gap-3">
+                    <ng-container *ngIf="class.status == 'Opening'">
+                        <button class="flex items-center">
+                            <mat-icon class="text-red-500" svgIcon="heroicons_outline:lock-closed"></mat-icon>
+                        </button>
+                    </ng-container>
+                    <ng-container *ngIf="class.status == 'Closed'">
+                        <button class="flex items-center">
+                            <mat-icon class="text-green-500" svgIcon="heroicons_outline:lock-open"></mat-icon>
+                        </button>
+                    </ng-container>
+                    <div [class]="class.status | classStatusStyle">{{ class.status }}</div>
+                </div>
             </div>
+            <div class="py-3">Description</div>
+            <div class="py-3" [innerHTML]="class.description"></div>
         </div>
     </div>
 

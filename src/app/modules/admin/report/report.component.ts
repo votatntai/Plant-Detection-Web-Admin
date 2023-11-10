@@ -107,7 +107,7 @@ export class ReportComponent implements OnInit, AfterViewInit {
             merge(this._sort.sortChange, this._paginator.page).pipe(
                 switchMap(() => {
                     this.isLoading = true;
-                    return this._reportService.getReports(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
+                    return this._reportService.getReports(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
                 }),
                 map(() => {
                     this.isLoading = false;
