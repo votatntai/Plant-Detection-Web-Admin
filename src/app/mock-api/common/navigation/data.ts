@@ -34,8 +34,15 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 id: 'plants',
                 title: 'Plants Management',
                 type: 'basic',
-                icon: 'heroicons_outline:users',
+                icon: 'feather:droplet',
                 link: '/resources/plants'
+            },
+            {
+                id: 'labels',
+                title: 'Labels Management',
+                type: 'basic',
+                icon: 'heroicons_outline:tag',
+                link: '/resources/labels'
             }
         ]
     },
@@ -80,8 +87,15 @@ export const compactNavigation: FuseNavigationItem[] = [
                 id: 'plants',
                 title: 'Plants Management',
                 type: 'basic',
-                icon: '',
-                link: '/plants'
+                icon: 'feather:droplet',
+                link: '/resources/plants'
+            },
+            {
+                id: 'labels',
+                title: 'Labels Management',
+                type: 'basic',
+                icon: 'heroicons_outline:tag',
+                link: '/resources/labels'
             }
         ]
     },
@@ -126,8 +140,15 @@ export const futuristicNavigation: FuseNavigationItem[] = [
                 id: 'plants',
                 title: 'Plants Management',
                 type: 'basic',
-                icon: '',
-                link: '/plants'
+                icon: 'feather:droplet',
+                link: '/resources/plants'
+            },
+            {
+                id: 'labels',
+                title: 'Labels Management',
+                type: 'basic',
+                icon: 'heroicons_outline:tag',
+                link: '/resources/labels'
             }
         ]
     },
@@ -172,8 +193,15 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                 id: 'plants',
                 title: 'Plants Management',
                 type: 'basic',
-                icon: '',
-                link: '/plants'
+                icon: 'feather:droplet',
+                link: '/resources/plants'
+            },
+            {
+                id: 'labels',
+                title: 'Labels Management',
+                type: 'basic',
+                icon: 'heroicons_outline:tag',
+                link: '/resources/labels'
             }
         ]
     },

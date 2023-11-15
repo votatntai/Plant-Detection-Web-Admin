@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule } from '@angular/material/form-field';
@@ -10,13 +10,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { Router } from '@angular/router';
 import { CustomPipesModule } from '@fuse/pipes/custom-pipes.module';
-import { Plant } from 'app/types/plant.type';
 import { Pagination } from 'app/types/pagination.type';
+import { Plant } from 'app/types/plant.type';
 import { Observable, Subject, debounceTime, map, merge, switchMap, takeUntil } from 'rxjs';
-import { PlantService } from './plant.service';
 import { CreatePlantComponent } from './create/create-plant.component';
+import { PlantService } from './plant.service';
 
 @Component({
     selector: 'app-plant',

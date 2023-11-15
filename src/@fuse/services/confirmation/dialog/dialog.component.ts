@@ -46,7 +46,7 @@ export class FuseConfirmationDialogComponent implements OnInit {
 
     ngOnInit() {
         this.inputForm = this._formBuilder.group({
-            input: ['', [Validators.required, Validators.minLength(8)]]
+            input: ['', [Validators.required]]
         });
     }
 

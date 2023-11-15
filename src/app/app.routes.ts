@@ -93,6 +93,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: 'plants', loadChildren: () => import('app/modules/admin/plants/plant.routes') },
+            { path: 'labels', loadChildren: () => import('app/modules/admin/labels/label.routes') },
         ]
     }
 ];
