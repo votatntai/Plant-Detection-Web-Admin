@@ -64,8 +64,8 @@ export class ClassService {
                 pageNumber: pageNumber,
                 sort,
                 order,
-                ...(status !== undefined && { status }),
-                ...(search !== undefined && { name: search }),
+                ...(status !== undefined && status !== null && { status }),
+                ...(search !== undefined && search !== null && { name: search }),
             }
         }).pipe(
             tap((response) => {

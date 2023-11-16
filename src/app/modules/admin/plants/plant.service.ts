@@ -55,7 +55,7 @@ export class PlantService {
                 pageNumber: pageNumber,
                 sort,
                 order,
-                ...(status !== undefined && { status }),
+                ...(status !== undefined && status !== null && { status }),
                 ...(search !== undefined && search !== null && { name: search }),
             }
         }).pipe(

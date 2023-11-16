@@ -55,7 +55,7 @@ export class ReportService {
                 pageNumber: pageNumber,
                 sort,
                 order,
-                ...(status !== undefined && { status }),
+                ...(status !== undefined && status !== null && { status }),
                 ...(search !== undefined && search !== null && { name: search }),
             }
         }).pipe(
