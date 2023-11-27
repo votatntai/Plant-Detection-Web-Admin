@@ -71,7 +71,7 @@ export class LabelComponent implements OnInit, AfterViewInit {
             this._paginator.page.pipe(
                 switchMap(() => {
                     this.isLoading = true;
-                    return this._labelService.getLabels(0, this._paginator.pageSize);
+                    return this._labelService.getLabels(this._paginator.pageIndex, this._paginator.pageSize);
                 }),
                 map(() => {
                     this.isLoading = false;

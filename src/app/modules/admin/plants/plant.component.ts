@@ -16,6 +16,8 @@ import { Plant } from 'app/types/plant.type';
 import { Observable, Subject, debounceTime, map, merge, switchMap, takeUntil } from 'rxjs';
 import { CreatePlantComponent } from './create/create-plant.component';
 import { PlantService } from './plant.service';
+import { PlantDetailComponent } from './detail/plant-detail.component';
+import { CategoryService } from '../category/category.service';
 
 @Component({
     selector: 'app-plant',
@@ -56,6 +58,7 @@ export class PlantComponent implements OnInit, AfterViewInit {
         private _plantService: PlantService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _dialog: MatDialog,
+        private _categoryService: CategoryService
     ) { }
 
     ngOnInit() {
@@ -105,7 +108,7 @@ export class PlantComponent implements OnInit, AfterViewInit {
             merge(this._sort.sortChange, this._paginator.page).pipe(
                 switchMap(() => {
                     this.isLoading = true;
-                    return this._plantService.getPlants(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
+                    return this._plantService.getPlants(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction, this.searchInputControl.value, this.status);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -139,10 +142,24 @@ export class PlantComponent implements OnInit, AfterViewInit {
         this._plantService.getPlants(0, this._paginator.pageSize, this._sort.active, this._sort.direction, this.query, this.status).subscribe();
     }
 
-
     openCreatePlantDialog() {
-        this._dialog.open(CreatePlantComponent, {
-            width: '960px',
+        this._categoryService.getCategories().subscribe(response => {
+            this._dialog.open(CreatePlantComponent, {
+                width: '960px',
+                data: {
+                    categories: response.data
+                }
+            })
         })
+    }
+
+    openPlantDetail(plantId: string) {
+        this._plantService.getPlant(plantId).subscribe(plant => {
+            this._dialog.open(PlantDetailComponent, {
+                width: '1260px',
+                data: plant
+            })
+        })
+
     }
 }

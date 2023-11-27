@@ -9,65 +9,148 @@
     </div>
 
     <!-- Compose form -->
-    <form class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto" [formGroup]="createPlantForm">
+    <div class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto">
 
-        <!-- Name -->
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput [formControlName]="'name'">
-        </mat-form-field>
+        <form [formGroup]="createPlantForm">
 
-        <!-- Code -->
-        <mat-form-field>
-            <mat-label>Code</mat-label>
-            <input matInput [formControlName]="'code'">
-        </mat-form-field>
-
-        <!-- Category -->
-        <mat-form-field>
-            <mat-select [value]="'Cây thân gỗ'">
-                <mat-option value="Cây thân gỗ">Cây thân gỗ</mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <!-- Body -->
-        <quill-editor class="mt-2" [formControlName]="'description'" [bounds]="'self'"
-            [modules]="quillModules"></quill-editor>
-
-        <div class="py-4">
-            <h1 class="text-secondary font-semibold mb-4">Select 5 Images</h1>
-            <div class="flex flex-row gap-4 justify-between flex-wrap">
-                <label *ngFor="let image of selectedImages; let i = index">
-                    <input type="file" [id]="'fileInput' + i" #fileInput style="display: none"
-                        (change)="onSelectFile($event, i)" accept="image/*">
-                    <div class="h-40 w-40 cursor-pointer flex items-center justify-center bg-gray-100 rounded-lg">
-                        <label for="fileInput{{i}}">
-                            <div *ngIf="!imageSelected[i]">
-                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                </svg>
-                            </div>
-                        </label>
-                        <img class="h-40 w-40 rounded-lg" [src]="objectURLs[i] || ''" *ngIf="image"
-                            alt="Uploaded Image">
-                    </div>
-                </label>
+            <div class="mb-4">
+                <div class="flex flex-row gap-4 justify-between flex-wrap">
+                    <label *ngFor="let image of selectedImages; let i = index">
+                        <input type="file" [id]="'fileInput' + i" #fileInput style="display: none"
+                            (change)="onSelectFile($event, i)" accept="image/*">
+                        <div class="h-40 w-40 cursor-pointer flex items-center justify-center bg-gray-100 rounded-lg">
+                            <label for="fileInput{{i}}">
+                                <div *ngIf="!imageSelected[i]">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                    </svg>
+                                </div>
+                            </label>
+                            <img class="h-40 w-40 rounded-lg" [src]="objectURLs[i] || ''" *ngIf="image"
+                                alt="Uploaded Image">
+                        </div>
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <!-- Actions -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
-            <div></div>
+            <div class="flex gap-4 w-full">
 
-            <div class="flex items-center mt-4 sm:mt-0">
-                <!-- Send -->
-                <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="onSubmit()">
-                    Send
-                </button>
+                <!-- Name -->
+                <mat-form-field class="w-full">
+                    <mat-label>Name</mat-label>
+                    <input class="w-full" matInput [formControlName]="'name'">
+                </mat-form-field>
+                <!-- Code -->
+                <mat-form-field class="w-full">
+                    <mat-label>Code</mat-label>
+                    <input class="w-full" matInput [formControlName]="'code'">
+                </mat-form-field>
+                <!-- Science Name -->
+                <mat-form-field class="w-full">
+                    <mat-label>Science Name</mat-label>
+                    <input class="w-full" matInput [formControlName]="'scienceName'">
+                </mat-form-field>
             </div>
-        </div>
-    </form>
+
+            <div class="flex gap-4 w-full">
+                <!-- Category -->
+                <mat-form-field class="w-full">
+                    <mat-label>Category</mat-label>
+                    <mat-select [formControlName]="'categoryIds'" multiple>
+                        <ng-container *ngFor="let category of categories">
+                            <mat-option [value]="category.id">{{category.name}}</mat-option>
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <!-- Genus -->
+                <mat-form-field class="w-full">
+                    <mat-label>Genus</mat-label>
+                    <input class="w-full" matInput [formControlName]="'genus'">
+                </mat-form-field>
+                <!-- Species -->
+                <mat-form-field class="w-full">
+                    <mat-label>Species</mat-label>
+                    <input class="w-full" matInput [formControlName]="'species'">
+                </mat-form-field>
+            </div>
+
+            <div class="flex gap-4 w-full">
+
+                <!-- Living Condition -->
+                <mat-form-field class="w-full">
+                    <mat-label>Living Condition</mat-label>
+                    <input class="w-full" matInput [formControlName]="'livingCondition'">
+                </mat-form-field>
+
+                <!-- Distribution Area -->
+                <mat-form-field class="w-full">
+                    <mat-label>Distribution Area</mat-label>
+                    <input class="w-full" matInput [formControlName]="'distributionArea'">
+                </mat-form-field>
+
+                <!-- Uses -->
+                <mat-form-field class="w-full">
+                    <mat-label>Uses</mat-label>
+                    <input class="w-full" matInput [formControlName]="'ph'">
+                </mat-form-field>
+            </div>
+
+            <div class="flex gap-4 w-full">
+
+                <!-- PH -->
+                <mat-form-field class="w-full">
+                    <mat-label>PH</mat-label>
+                    <input class="w-full" matInput [formControlName]="'uses'">
+                </mat-form-field>
+
+                <!-- Fruit Time -->
+                <mat-form-field class="w-full">
+                    <mat-label>Fruit Time</mat-label>
+                    <input class="w-full" matInput [formControlName]="'fruitTime'">
+                </mat-form-field>
+
+                <!-- Conservation Status -->
+                <mat-form-field class="w-full">
+                    <mat-label>Conservation Status</mat-label>
+                    <input class="w-full" matInput [formControlName]="'conservationStatus'">
+                </mat-form-field>
+            </div>
+
+            <div class="flex gap-4 w-full">
+
+                <!-- Size -->
+                <mat-form-field class="w-full">
+                    <mat-label>Size</mat-label>
+                    <input class="w-full" matInput [formControlName]="'size'">
+                </mat-form-field>
+
+                <!-- Discoverer -->
+                <mat-form-field class="w-full">
+                    <mat-label>Discoverer</mat-label>
+                    <input class="w-full" matInput [formControlName]="'discoverer'">
+                </mat-form-field>
+            </div>
+
+            <!-- Description -->
+            <span class="font-medium">Description</span>
+            <quill-editor class="mt-2 w-full" [formControlName]="'description'" [bounds]="'self'"
+                [modules]="quillModules"></quill-editor>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+                <div></div>
+
+                <div class="flex items-center mt-4 sm:mt-0">
+                    <!-- Save -->
+                    <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="onSubmit()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 </div>
