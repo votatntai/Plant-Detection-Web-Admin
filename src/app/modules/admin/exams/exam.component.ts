@@ -8,28 +8,26 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
 import { CustomPipesModule } from '@fuse/pipes/custom-pipes.module';
-import { Label } from 'app/types/label.type';
+import { Exam } from 'app/types/exam.type';
 import { Pagination } from 'app/types/pagination.type';
 import { Observable, Subject, debounceTime, map, switchMap, takeUntil } from 'rxjs';
-import { LabelService } from './label.service';
+import { ExamService } from './exam.service';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { MatMenuModule } from '@angular/material/menu';
-
 
 @Component({
-    selector: 'app-label',
-    templateUrl: 'label.component.html',
+    selector: 'app-exam',
+    templateUrl: 'exam.component.html',
     standalone: true,
     imports: [CommonModule, MatProgressBarModule, MatIconModule, MatButtonModule, MatInputModule,
-        MatPaginatorModule, MatSortModule, CustomPipesModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatMenuModule
+        MatPaginatorModule, MatSortModule, CustomPipesModule, MatSelectModule, FormsModule, ReactiveFormsModule,
     ],
 })
 
-export class LabelComponent implements OnInit, AfterViewInit {
+export class ExamComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator) private _paginator: MatPaginator;
 
-    labels$: Observable<Label[]>;
+    exams$: Observable<Exam[]>;
 
     searchInputControl: UntypedFormControl = new UntypedFormControl();
     isLoading: boolean = false;
@@ -38,17 +36,17 @@ export class LabelComponent implements OnInit, AfterViewInit {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     constructor(
-        private _labelService: LabelService,
+        private _examService: ExamService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _fuseConfirmationService: FuseConfirmationService
     ) { }
 
     ngOnInit() {
         // Get the products
-        this.labels$ = this._labelService.labels$;
+        this.exams$ = this._examService.exams$;
 
         // Get the pagination
-        this._labelService.pagination$
+        this._examService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination: Pagination) => {
 
@@ -73,7 +71,7 @@ export class LabelComponent implements OnInit, AfterViewInit {
             this._paginator.page.pipe(
                 switchMap(() => {
                     this.isLoading = true;
-                    return this._labelService.getLabels(this._paginator.pageIndex, this._paginator.pageSize);
+                    return this._examService.getExams(this._paginator.pageIndex, this._paginator.pageSize);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -90,7 +88,7 @@ export class LabelComponent implements OnInit, AfterViewInit {
                 debounceTime(300),
                 switchMap((query) => {
                     this.isLoading = true;
-                    return this._labelService.getLabels(0, this._paginator.pageSize, query);
+                    return this._examService.getExams(0, this._paginator.pageSize, query);
                 }),
                 map(() => {
                     this.isLoading = false;
@@ -98,10 +96,10 @@ export class LabelComponent implements OnInit, AfterViewInit {
             ).subscribe();
     }
 
-    addLabel() {
+    addExam() {
         this._fuseConfirmationService.open({
-            title: 'Create label',
-            message: 'Enter label name to create new label',
+            title: 'Create exam',
+            message: 'Enter exam name to create new exam',
             input: {
                 title: "Name"
             },
@@ -116,72 +114,7 @@ export class LabelComponent implements OnInit, AfterViewInit {
             }
         }).afterClosed().subscribe(result => {
             if (result.status === 'confirmed') {
-                this._labelService.createLabel({ name: result.message }).subscribe(result => {
-
-                }, error => {
-                    if (error.status === 409) {
-                        this._fuseConfirmationService.open({
-                            title: 'Conflict',
-                            message: error.error,
-                            actions: {
-                                cancel: {
-                                    show: false
-                                }
-                            }
-                        })
-                    }
-                });
-            }
-        })
-    }
-
-    updateLabel(id: string) {
-        this._fuseConfirmationService.open({
-            title: 'Update label',
-            message: 'Enter label name to create new label',
-            input: {
-                title: "Name",
-            },
-            actions: {
-                confirm: {
-                    color: 'primary'
-                }
-            },
-            icon: {
-                name: 'feather:tag',
-                color: 'primary'
-            }
-        }).afterClosed().subscribe(result => {
-            this._labelService.updateLabel(id, { name: result.message }).subscribe(a => {
-
-            }, error => {
-                this._fuseConfirmationService.open({
-                    title: 'Conflict',
-                    message: error.error,
-                    actions: {
-                        cancel: {
-                            show: false
-                        }
-                    }
-                })
-            })
-        })
-    }
-
-    removeLabel(id: string) {
-        this._labelService.removeLabel(id).subscribe(() => {
-            console.log('asd');
-        }, error => {
-            if (error.status === 400 && error.error === 'The label already in class') {
-                this._fuseConfirmationService.open({
-                    title: 'Conflict',
-                    message: error.error,
-                    actions: {
-                        cancel: {
-                            show: false
-                        }
-                    }
-                });
+                this._examService.createExam({ name: result.message }).subscribe();
             }
         })
     }

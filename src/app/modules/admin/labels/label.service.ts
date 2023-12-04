@@ -82,6 +82,49 @@ export class LabelService {
     }
 
     /**
+    * Update label
+    */
+    updateLabel(id: string, data) {
+        return this.labels$.pipe(
+            take(1),
+            switchMap((labels) => this._httpClient.put<Label>(this.baseUrl + '/api/labels/' + id, data).pipe(
+                map((updatedLabel) => {
+
+                    // Find and replace updated label
+                    const index = labels.findIndex(item => item.id === id);
+                    labels[index] = updatedLabel;
+                    this._labels.next(labels);
+
+                    // Update label
+                    this._label.next(updatedLabel);
+
+                    return updatedLabel;
+                })
+            ))
+        )
+    }
+
+    /**
+* Remove label
+*/
+    removeLabel(id: string) {
+        return this.labels$.pipe(
+            take(1),
+            switchMap((labels) => this._httpClient.delete(this.baseUrl + '/api/labels/' + id).pipe(
+                map(() => {
+
+                    const index = labels.findIndex(item => item.id === id);
+
+                    labels.splice(index, 1);
+
+                    this._labels.next(labels);
+                    return true;
+                })
+            ))
+        )
+    }
+
+    /**
 * Get label by id
 */
     getLabel(id: string) {

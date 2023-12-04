@@ -53,6 +53,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:document-chart-bar',
         link: '/reports'
     },
+    {
+        id: 'questions',
+        title: 'Questions',
+        type: 'basic',
+        icon: 'heroicons_outline:question-mark-circle',
+        link: '/questions'
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
@@ -105,6 +112,13 @@ export const compactNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:document-chart-bar',
         link: '/reports'
+    },
+    {
+        id: 'questions',
+        title: 'Questions',
+        type: 'basic',
+        icon: 'heroicons_outline:question-mark-circle',
+        link: '/questions'
     },
 ];
 export const futuristicNavigation: FuseNavigationItem[] = [
@@ -159,6 +173,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:document-chart-bar',
         link: '/reports'
     },
+    {
+        id: 'questions',
+        title: 'Questions',
+        type: 'basic',
+        icon: 'heroicons_outline:question-mark-circle',
+        link: '/questions'
+    },
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
@@ -211,5 +232,12 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:document-chart-bar',
         link: '/reports'
+    },
+    {
+        id: 'questions',
+        title: 'Questions',
+        type: 'basic',
+        icon: 'heroicons_outline:question-mark-circle',
+        link: '/questions'
     },
 ];

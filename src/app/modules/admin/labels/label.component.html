@@ -32,10 +32,24 @@
                     <ng-container *ngIf="(labels$ | async) as labels">
                         <div class="mx-10 mt-10">
                             <div class="flex flex-wrap gap-4">
-                                <div *ngFor="let label of labels"
-                                    class="items-center mt-1.5 px-8 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-200 dark:text-gray-300 dark:bg-gray-700 font-bold">
-                                    {{ label.name }}
-                                </div>
+                                <ng-container *ngFor="let label of labels">
+                                    <div [matMenuTriggerFor]="menu"
+                                        class="items-center mt-1.5 px-8 leading-9 rounded-full cursor-pointer text-gray-500 bg-gray-200 dark:text-gray-300 dark:bg-gray-700 font-bold">
+                                        {{ label.name }}
+                                    </div>
+
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item (click)="updateLabel(label.id)">
+                                            <mat-icon svgIcon="heroicons_outline:wrench"></mat-icon>
+                                            <span>Update</span>
+                                        </button>
+                                        <button mat-menu-item (click)="removeLabel(label.id)">
+                                            <mat-icon svgIcon="heroicons_outline:trash"></mat-icon>
+                                            <span>Remove</span>
+                                        </button>
+                                    </mat-menu>
+                                </ng-container>
+
                             </div>
                         </div>
                         <mat-paginator
