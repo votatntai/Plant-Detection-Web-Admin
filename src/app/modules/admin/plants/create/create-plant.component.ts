@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { QuillEditorComponent } from 'ngx-quill';
 import { PlantService } from '../plant.service';
 import { Category } from 'app/types/category.type';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
 
 @Component({
     selector: 'app-create-plant',
@@ -48,7 +49,8 @@ export class CreatePlantComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: any,
         public matDialogRef: MatDialogRef<CreatePlantComponent>,
         private _formBuilder: UntypedFormBuilder,
-        private _plantService: PlantService
+        private _plantService: PlantService,
+        private _fuseConfirmationService: FuseConfirmationService
     ) {
     }
 
@@ -131,7 +133,32 @@ export class CreatePlantComponent implements OnInit {
         formData.append('discoverer', this.createPlantForm.get('discoverer').value);
 
         // Gửi biểu mẫu dưới dạng multipart/form-data
-        this._plantService.createPlant(formData).subscribe();
+        this._plantService.createPlant(formData).subscribe(result => {
+            this.dialogRef.close();
+        }, error => {
+            if (error.status === 409 && error.error === 'The plant code already exists') {
+                this._fuseConfirmationService.open({
+                    title: 'Conflict',
+                    message: error.error,
+                    actions: {
+                        cancel: {
+                            show: false
+                        }
+                    }
+                });
+            }
+            if (error.status === 409 && error.error === 'The plant name already exists') {
+                this._fuseConfirmationService.open({
+                    title: 'Conflict',
+                    message: error.error,
+                    actions: {
+                        cancel: {
+                            show: false
+                        }
+                    }
+                });
+            }
+        });
     }
 
     /**

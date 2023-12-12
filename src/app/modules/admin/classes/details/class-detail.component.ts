@@ -72,4 +72,16 @@ export class ClassDetailComponent implements OnInit {
             }
         });
     }
+
+    downloadStudentsExcel() {
+        this._classService.downloadStudentsExcel(this.class.id)
+            .subscribe((data: Blob) => {
+                var downloadURL = window.URL.createObjectURL(data);
+                var link = document.createElement('a');
+                link.href = downloadURL;
+                link.download = this.class.code + ".xlsx";
+                link.click();
+            });
+    }
+
 }

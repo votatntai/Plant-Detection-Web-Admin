@@ -178,4 +178,11 @@ export class ClassService {
             }),
         );
     }
+
+    downloadStudentsExcel(id: string) {
+        const httpOptions = {
+            responseType: 'blob' as 'json'
+        };
+        return this._httpClient.get(this.baseUrl + '/api/students/exports/classes/' + id, httpOptions);
+    }
 }
