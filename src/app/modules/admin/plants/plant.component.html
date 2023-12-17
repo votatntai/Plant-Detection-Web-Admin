@@ -21,13 +21,8 @@
                         <mat-form-field class="fuse-mat-dense fuse-mat-rounded min-w-64">
                             <mat-select [value]="'All'" (selectionChange)="statusSelectionChange($event)">
                                 <mat-option value="All">All</mat-option>
-                                <mat-option class="text-blue-700" value="In Progress">In Progress</mat-option>
-                                <mat-option value="Completed">Completed</mat-option>
-                                <mat-option value="Cancelled">Cancelled</mat-option>
-                                <mat-option value="Rejected">Rejected</mat-option>
-                                <mat-option value="Pending Approval">Pending Approval</mat-option>
-                                <mat-option value="On Hold">On Hold</mat-option>
-                                <mat-option value="Pending Review">Pending Review</mat-option>
+                                <mat-option value="Available">Available</mat-option>
+                                <mat-option value="Disabled">Disabled</mat-option>
                             </mat-select>
                         </mat-form-field>
                         <!-- Search -->
@@ -104,10 +99,16 @@
 
                                             <!-- Action -->
                                             <div class="hidden sm:block">
-                                                <span (click)="openPlantDetail(plant.id)">
-                                                    <mat-icon class="text-blue-700 icon-size-6 cursor-pointer"
-                                                        [svgIcon]="'heroicons_outline:pencil-square'"></mat-icon>
-                                                </span>
+                                                <div class="flex gap-3 w-full">
+                                                    <span (click)="openPlantDetail(plant.id)">
+                                                        <mat-icon class="text-blue-700 icon-size-6 cursor-pointer"
+                                                            [svgIcon]="'heroicons_outline:eye'"></mat-icon>
+                                                    </span>
+                                                    <span (click)="openUpdatePlantDialog(plant.id)">
+                                                        <mat-icon class="text-orange-700 icon-size-6 cursor-pointer"
+                                                            [svgIcon]="'heroicons_outline:pencil-square'"></mat-icon>
+                                                    </span>
+                                                </div>
                                             </div>
 
                                         </div>

@@ -18,6 +18,7 @@ import { CreatePlantComponent } from './create/create-plant.component';
 import { PlantService } from './plant.service';
 import { PlantDetailComponent } from './detail/plant-detail.component';
 import { CategoryService } from '../category/category.service';
+import { PlantUpdateComponent } from './update/plant-update.component';
 
 @Component({
     selector: 'app-plant',
@@ -156,6 +157,16 @@ export class PlantComponent implements OnInit, AfterViewInit {
     openPlantDetail(plantId: string) {
         this._plantService.getPlant(plantId).subscribe(plant => {
             this._dialog.open(PlantDetailComponent, {
+                width: '1260px',
+                data: plant
+            })
+        })
+
+    }
+
+    openUpdatePlantDialog(plantId: string) {
+        this._plantService.getPlant(plantId).subscribe(plant => {
+            this._dialog.open(PlantUpdateComponent, {
                 width: '1260px',
                 data: plant
             })

@@ -9,13 +9,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/dashboards'
     },
-    {
-        id: 'configurations',
-        title: 'Configurations',
-        type: 'basic',
-        icon: 'heroicons_outline:wrench',
-        link: '/configurations'
-    },
+
     {
         id: 'classes',
         title: 'Classes',
@@ -69,13 +63,7 @@ export const compactNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/dashboards'
     },
-    {
-        id: 'configurations',
-        title: 'Configurations',
-        type: 'basic',
-        icon: 'heroicons_outline:wrench',
-        link: '/configurations'
-    },
+
     {
         id: 'classes',
         title: 'Classes',
@@ -129,13 +117,7 @@ export const futuristicNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/dashboards'
     },
-    {
-        id: 'configurations',
-        title: 'Configurations',
-        type: 'basic',
-        icon: 'heroicons_outline:wrench',
-        link: '/configurations'
-    },
+
     {
         id: 'classes',
         title: 'Classes',
@@ -189,13 +171,7 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:chart-pie',
         link: '/dashboards'
     },
-    {
-        id: 'configurations',
-        title: 'Configurations',
-        type: 'basic',
-        icon: 'heroicons_outline:wrench',
-        link: '/configurations'
-    },
+
     {
         id: 'classes',
         title: 'Classes',
